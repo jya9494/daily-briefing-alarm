@@ -1,0 +1,24 @@
+name: Daily Briefing TTS
+on:
+  schedule:
+    - cron: "0 21 * * *"  # 한국 시간 기준 매일 아침 6시 실행
+  workflow_dispatch:
+
+jobs:
+  generate-briefing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install selenium gtts
+
+      - name: Run script
+        run: python script.py
